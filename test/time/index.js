@@ -6,7 +6,39 @@
       this.baseline[1] = Date.today().set( { hour: 6, minute: 45 } );
       this.baseline[2] = Date.today().set( { hour: 22 } );
       this.baseline[3] = Date.today().set( { hour: 22, minute: 30 } );
+    }, 
+    '12 am': {
+      run: function() { },
+      assert: function() { return Date.today().equals(Date.parse("12 am")) }
     },
+    '12 AM': {
+      run: function() { },
+      assert: function() { return Date.today().equals(Date.parse("12 am")) }
+    }, 
+    '12 A': {
+      run: function() { },
+      assert: function() { return Date.today().equals(Date.parse("12 A")) }
+    }, 
+    '12A': {
+      run: function() { },
+      assert: function() { return Date.today().equals(Date.parse("12A")) }
+    },         
+    '12 pm': {
+      run: function() { },
+      assert: function() { return Date.today().add(12).hours().equals(Date.parse("12 pm")) }
+    }, 
+    '12 PM': {
+      run: function() { },
+      assert: function() { return Date.today().add(12).hours().equals(Date.parse("12 PM")) }
+    }, 
+    '12 P': {
+      run: function() { },
+      assert: function() { return Date.today().add(12).hours().equals(Date.parse("12 P")) }
+    }, 
+    '12P': {
+      run: function() { },
+      assert: function() { return Date.today().add(12).hours().equals(Date.parse("12P")) }
+    },                    
 
     '22:30': {
       run: function() { this.date = Date.parse('22:30') },
@@ -202,19 +234,31 @@
 'With Timezones': {
     setup: function() { 
       this.d = [];
-      this.d[0] = Date.today().set({hour: 22, minute: 30 }).setTimezoneOffset(-400);
-      this.d[1] = Date.today().set({hour: 22 }).setTimezoneOffset(-400);
+      this.d[0] = Date.today().set({hour: 22, minute: 30 }).setTimezoneOffset(-500);
+      this.d[1] = Date.today().set({hour: 22 }).setTimezoneOffset(-500);
     },
     '10:30 PM EST': {
       run: function() { this.date = Date.parse('10:30 PM EST') },
       assert: function() { return this.d[0].equals( this.date ) }
     },
-    '10:30 PM -0400 : Offset': {
-      run: function() { this.date = Date.parse('10:30 PM -0400') },
+    '10:30 PM -0500 : Offset': {
+      run: function() { this.date = Date.parse('10:30 PM -0500') },
       assert: function() { return this.d[0].equals( this.date ) }
     }
+  } ,
+  
+'Misc': {
+    setup: function() { 
+    },
+    '10:2 == 10:02': {
+      run: function() { this.date = Date.parse('10:2') },
+      assert: function() { return Date.today().set({hour: 10, minute: 2}).equals( this.date ) }
+    },
+    '10:2:5 == 10:02:05': {
+      run: function() { this.date = Date.parse('10:2:5') },
+      assert: function() { return Date.today().set({hour: 10, minute: 2, second: 5}).equals( this.date ) }
+    }
   }  
-    
 });
 
 $(document).ready( function() { Date.Specification.validate().show() } );

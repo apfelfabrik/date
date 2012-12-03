@@ -1,4 +1,6 @@
-Copyright (c) 2006-2007, Coolite Inc. (http://www.coolite.com/). All rights reserved.
+The MIT License (http://www.opensource.org/licenses/mit-license.php)
+
+Copyright (c) 2006-2008, Coolite Inc. (http://www.coolite.com/). All rights reserved.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -21,3 +23,4 @@ THE SOFTWARE.
 See also:
 	http://www.datejs.com/license/
 	http://www.datejs.com/
+	http://www.coolite.com/

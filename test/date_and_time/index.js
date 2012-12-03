@@ -5,19 +5,19 @@
       this.d[0] = new Date(2004,6,8,22,30,0,0);
       this.d[1] = this.d[0].clone().setTimezoneOffset('-0400');
     },
-    'July 8th, 2004, 10:30 PM : Standard': {
+    'July 8th, 2004, 10:30 PM': {
       run: function() { this.date = Date.parse('July 8th, 2004, 10:30 PM') },
       assert: function() { return this.d[0].compareTo( this.date ) == 0 }
     },
-    '2004.07.08 22:30 : Numeric': {
+    '2004.07.08 22:30': {
       run: function() { this.date = Date.parse('2004.07.08 22:30') },
       assert: function() { return this.d[0].compareTo( this.date ) == 0 }
     },
-    '10:30pm 08-July-2004 : Time First': {
+    '10:30pm 08-July-2004': {
       run: function() { this.date = Date.parse('10:30pm 08-July-2004') },
       assert: function() { return this.d[0].compareTo( this.date ) == 0 }
     },
-    'Thu Jul 8 2004 22:30:00 GMT-0400 : Native JavaScript .toString()': {
+    'Thu Jul 8 2004 22:30:00 GMT-0400': {
       run: function() { this.date = Date.parse('Thu Jul 8 2004 22:30:00 GMT-0400') },
       assert: function() { return this.d[1].equals( this.date ) }      
     }
@@ -96,8 +96,24 @@
     '2004-07-15T06:45:00 : SortableDateTimePattern [yyyy-MM-ddTHH:mm:ss]': {
       run: function() { this.date =  Date.parse('2004-07-15T06:45:00') },
       assert: function() { return this.baseline2.equals( this.date ) }
-    }
-  },
+    },
+    '11 Aug 2007 7:15:00 am EDT': {
+      run: function() { this.date =  Date.parse('11 Aug 2007 7:15:00 am EDT') },
+      assert: function() { return new Date(2007,7,11,7,15,0).add(-2).hours().equals( this.date ) }
+    },
+    'Tue Nov 20 2007 08:00:00 UTC': {
+      run: function() { this.date = Date.parse("Tue Nov 20 2007 08:00:00 UTC") },
+      assert: function() { return new Date(2007,10,20,8,0,0).setTimezone("UTC").equals( this.date ) }
+    },
+    '24 Apr 2008 17:00': {
+      run: function() { this.date = Date.parse("24 Apr 2008 17:00") },
+      assert: function() { return new Date(2008,3,24,17,0,0).equals( this.date ) }
+    },
+    '24 April 2008 17:00': {
+      run: function() { this.date = Date.parse("24 April 2008 17:00") },
+      assert: function() { return new Date(2008,3,24,17,0,0).equals( this.date ) }
+    }   
+},
     
     'Numeric Variations': {
     setup: function() {
@@ -623,7 +639,102 @@
         run: function() { this.date =  Date.parse('Thu, 1 July 2004 22:30:00 GMT') },
         assert: function() { return this.d[7].equals( this.date ) }
       }
-  }  
+  },
+
+
+'ISO 8601 Formats': {
+    setup: function() {
+          this.d = [];
+          this.d[0] = new Date(2004,6,1,22,30,0,0);
+          this.d[1] = new Date(2004,6,15,6,45,0,0);
+          this.d[2] = Date.today().set( { hour: 22, minute: 30 } );
+          this.d[3] = Date.today().set( { hour: 6, minute: 45 } );
+          this.d[4] = Date.today().set( { month: 6, day: 1 } );
+          this.d[5] = Date.today().set( { month: 6, day: 15 } );
+          this.d[6] = Date.today().set( { month: 6, day: 1, year: 2004 } );
+          this.d[7] = this.d[0].clone().setTimezoneOffset( 0 );
+          this.d[8] = this.d[1].clone().setTimezoneOffset( '-0400' );
+    },
+
+      '1997 : "YYYY"': {
+        run: function() { },
+        assert: function() { return Date.today().set({year: 1997, day: 1}).equals( Date.parse('1997') ) }
+      },
+      '1997-07 : "YYYY-MM"': {
+        run: function() { },
+        assert: function() { return Date.july().set({year: 1997}).equals( Date.parse('1997-07') ) }
+      },
+      '1997-07-16 : "YYYY-MM-DD"': {
+        run: function() { },
+        assert: function() { return Date.july().set({year: 1997, day: 16}).equals( Date.parse('1997-07-16') ) }
+      },      
+      '1997-07-16T19:20 : "YYYY-MM-DDThh:mm"': {
+        run: function() { },
+        assert: function() { return new Date(1997,6,16,19,20,0).equals( Date.parse('1997-07-16T19:20') ) }
+      },
+      '1997-07-16T19:20 : "YYYY-MM-DDThh:mm" : .parseExact': {
+        run: function() { },
+        assert: function() { return new Date(1997,6,16,19,20,0).equals( Date.parseExact('1997-07-16T19:20',"yyyy-MM-ddTHH:mm") ) }
+      },      
+      '1997-07-16T19:20:15 : "YYYY-MM-DDThh:mm:ss"': {
+        run: function() { },
+        assert: function() { return new Date(1997,6,16,19,20,15).equals( Date.parse('1997-07-16T19:20:15') ) }
+      },
+      '1997-07-16T19:20:15 : "YYYY-MM-DDThh:mm:ss" : .parseExact': {
+        run: function() { },
+        assert: function() { return new Date(1997,6,16,19,20,15).equals( Date.parseExact('1997-07-16T19:20:15', "yyyy-MM-ddTHH:mm:ss") ) }
+      },
+
+      '1997-07-16T19:20+01:00 : "YYYY-MM-DDThh:mmTZD"': {
+        run: function() { },
+        assert: function() { return new Date(1997,6,16,19,20,0).setTimezoneOffset('+0100').equals( Date.parse('1997-07-16T19:20+01:00') ) }
+      },
+      '1997-07-16T19:20+01:00 : "YYYY-MM-DDThh:mmTZD" : parseExact': {
+        run: function() { },
+        assert: function() { return new Date(1997,6,16,19,20,0).setTimezoneOffset('+0100').equals( Date.parseExact('1997-07-16T19:20+01:00', "yyyy-MM-ddTHH:mmz") ) }
+      },
+       '1997-07-16T19:20:30+01:00 : "YYYY-MM-DDThh:mm:ssTZD"': {
+        run: function() { },
+        assert: function() { return new Date(1997,6,16,19,20,30).setTimezoneOffset('+0100').equals( Date.parse('1997-07-16T19:20:30+01:00') ) }
+      },
+       '1997-07-16T19:20:30+01:00 : "YYYY-MM-DDThh:mm:ssTZD" : parseExact': {
+        run: function() { },
+        assert: function() { return new Date(1997,6,16,19,20,30).setTimezoneOffset('+0100').equals( Date.parseExact('1997-07-16T19:20:30+01:00', "yyyy-MM-ddTHH:mm:ssz") ) }
+      },
+       '1997-07-16T19:20:30.45+01:00 : "YYYY-MM-DDThh:mm:ss.sTZD"': {
+        run: function() { },
+        assert: function() { return new Date(1997,6,16,19,20,30,45).setTimezoneOffset('+0100').equals( Date.parse('1997-07-16T19:20:30.45+01:00') ) }
+      }    
+  },
+
+'RFC 3339 Formats': {
+    setup: function() {
+          this.d = [];
+          this.d[0] = new Date(2004,6,1,22,30,0,0);
+          this.d[1] = new Date(2004,6,15,6,45,0,0);
+          this.d[2] = Date.today().set( { hour: 22, minute: 30 } );
+          this.d[3] = Date.today().set( { hour: 6, minute: 45 } );
+          this.d[4] = Date.today().set( { month: 6, day: 1 } );
+          this.d[5] = Date.today().set( { month: 6, day: 15 } );
+          this.d[6] = Date.today().set( { month: 6, day: 1, year: 2004 } );
+          this.d[7] = this.d[0].clone().setTimezoneOffset( 0 );
+          this.d[8] = this.d[1].clone().setTimezoneOffset( '-0400' );
+    },
+
+      '1985-04-12T23:20:50': {
+        run: function() { },
+        assert: function() { return new Date(1985,3,12,23,20,50).equals( Date.parse('1985-04-12T23:20:50') ) }
+      },
+      '1985-04-12T23:20:50Z': {
+        run: function() { },
+        assert: function() { return new Date(1985,3,12,23,20,50).equals( Date.parse('1985-04-12T23:20:50Z') ) }
+      },  
+      'Much faster with Date.parseExact("1985-04-12T23:20:50Z", "yyyy-MM-ddTHH:mm:ssZ")': {
+        run: function() { },
+        assert: function() { return new Date(1985,3,12,23,20,50).equals( Date.parseExact('1985-04-12T23:20:50Z', "yyyy-MM-ddTHH:mm:ssZ") ) }
+      }         
+
+  }      
 });
 
 $(document).ready( function() { Date.Specification.validate().show() });

@@ -1,10 +1,3 @@
-/**
- * Version: 1.0 Alpha-1 
- * Build Date: 13-Nov-2007
- * Copyright (c) 2006-2007, Coolite Inc. (http://www.coolite.com/). All rights reserved.
- * License: Licensed under The MIT License. See license.txt and http://www.datejs.com/license/. 
- * Website: http://www.datejs.com/ or http://www.coolite.com/datejs/
- */
 Date.CultureInfo = {
 	/* Culture Name */
     name: "ka-GE",
@@ -40,11 +33,10 @@ Date.CultureInfo = {
      "dd/MM/yyyy"        "dmy"
      "yyyy-MM-dd"        "ymd"
      </pre>
+     *
      * The correct dateElementOrder is required by the parser to
      * determine the expected order of the date elements in the
      * string being parsed.
-     * 
-     * NOTE: It is VERY important this value be correct for each Culture.
      */
     dateElementOrder: "dmy",
     
@@ -80,10 +72,9 @@ Date.CultureInfo = {
      * providing the correct regular expression pattern. 
      *
      * If you modify this file, please post your revised CultureInfo file
-     * to the Datejs Discussions located at
-     *     http://groups.google.com/group/date-js
+     * to the Datejs Forum located at http://www.datejs.com/forums/.
      *
-     * Please mark the subject with [CultureInfo]. Example:
+     * Please mark the subject of the post with [CultureInfo]. Example:
      *    Subject: [CultureInfo] Translated "da-DK" Danish(Denmark)
      * 
      * We will add the modified patterns to the master source files.
@@ -114,52 +105,52 @@ Date.CultureInfo = {
 
         future: /^next/i,
         past: /^last|past|prev(ious)?/i,
-        add: /^(\+|after|from)/i,
-        subtract: /^(\-|before|ago)/i,
+        add: /^(\+|aft(er)?|from|hence)/i,
+        subtract: /^(\-|bef(ore)?|ago)/i,
         
-        yesterday: /^yesterday/i,
-        today: /^t(oday)?/i,
-        tomorrow: /^tomorrow/i,
+        yesterday: /^yes(terday)?/i,
+        today: /^t(od(ay)?)?/i,
+        tomorrow: /^tom(orrow)?/i,
         now: /^n(ow)?/i,
         
         millisecond: /^ms|milli(second)?s?/i,
         second: /^sec(ond)?s?/i,
-        minute: /^min(ute)?s?/i,
-        hour: /^h(ou)?rs?/i,
-        week: /^w(ee)?k/i,
-        month: /^m(o(nth)?s?)?/i,
-        day: /^d(ays?)?/i,
-        year: /^y((ea)?rs?)?/i,
+        minute: /^mn|min(ute)?s?/i,
+		hour: /^h(our)?s?/i,
+		week: /^w(eek)?s?/i,
+        month: /^m(onth)?s?/i,
+        day: /^d(ay)?s?/i,
+        year: /^y(ear)?s?/i,
 		
         shortMeridian: /^(a|p)/i,
         longMeridian: /^(a\.?m?\.?|p\.?m?\.?)/i,
-        timezone: /^((e(s|d)t|c(s|d)t|m(s|d)t|p(s|d)t)|((gmt)?\s*(\+|\-)\s*\d\d\d\d?)|gmt)/i,
+        timezone: /^((e(s|d)t|c(s|d)t|m(s|d)t|p(s|d)t)|((gmt)?\s*(\+|\-)\s*\d\d\d\d?)|gmt|utc)/i,
         ordinalSuffix: /^\s*(st|nd|rd|th)/i,
-        timeContext: /^\s*(\:|a|p)/i
+        timeContext: /^\s*(\:|a(?!u|p)|p)/i
     },
 
-    abbreviatedTimeZoneStandard: { GMT: "-000", EST: "-0400", CST: "-0500", MST: "-0600", PST: "-0700" },
-    abbreviatedTimeZoneDST: { GMT: "-000", EDT: "-0500", CDT: "-0600", MDT: "-0700", PDT: "-0800" }
-    
+	timezones: [{name:"UTC", offset:"-000"}, {name:"GMT", offset:"-000"}, {name:"EST", offset:"-0500"}, {name:"EDT", offset:"-0400"}, {name:"CST", offset:"-0600"}, {name:"CDT", offset:"-0500"}, {name:"MST", offset:"-0700"}, {name:"MDT", offset:"-0600"}, {name:"PST", offset:"-0800"}, {name:"PDT", offset:"-0700"}]
 };
 
 /********************
  ** Future Strings **
  ********************
  * 
- * The following list of strings are not currently being used, but 
- * may be incorporated later. We would appreciate any help translating
- * the strings below.
+ * The following list of strings may not be currently being used, but 
+ * may be incorporated into the Datejs library later. 
+ *
+ * We would appreciate any help translating the strings below.
  * 
  * If you modify this file, please post your revised CultureInfo file
- * to the Datejs Discussions located at
- *     http://groups.google.com/group/date-js
+ * to the Datejs Forum located at http://www.datejs.com/forums/.
  *
- * Please mark the subject with [CultureInfo]. Example:
- *    Subject: [CultureInfo] Translated "da-DK" Danish(Denmark)
+ * Please mark the subject of the post with [CultureInfo]. Example:
+ *    Subject: [CultureInfo] Translated "da-DK" Danish(Denmark)b
  *
  * English Name        Translated
  * ------------------  -----------------
+ * about               about
+ * ago                 ago
  * date                date
  * time                time
  * calendar            calendar
@@ -168,6 +159,7 @@ Date.CultureInfo = {
  * daily               daily
  * weekly              weekly
  * bi-weekly           bi-weekly
+ * fortnight           fortnight
  * monthly             monthly
  * bi-monthly          bi-monthly
  * quarter             quarter
@@ -183,4 +175,21 @@ Date.CultureInfo = {
  * repeat              repeat
  * times               times
  * per                 per
+ * min (abbrev minute) min
+ * morning             morning
+ * noon                noon
+ * night               night
+ * midnight            midnight
+ * mid-night           mid-night
+ * evening             evening
+ * final               final
+ * future              future
+ * spring              spring
+ * summer              summer
+ * fall                fall
+ * winter              winter
+ * end of              end of
+ * end                 end
+ * long                long
+ * short               short
  */

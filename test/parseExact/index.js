@@ -4,6 +4,18 @@
         this.baseline = new Date(2004,6,1);
         this.baseline2 = new Date(2004,6,15);
     },
+    '2008/1/1 : "yyyy/M/d"': {
+      run: function() { this.date = Date.parseExact('2008/1/1', "yyyy/M/d") },
+      assert: function() { return new Date(2008, 0, 1).equals(this.date) }
+    },
+    '2008/1/5 : "yyyy/M/d"': {
+      run: function() { this.date = Date.parseExact('2008/1/5', "yyyy/M/d") },
+      assert: function() { return new Date(2008, 0, 5).equals(this.date) }
+    },
+    '2008/1/31 : "yyyy/M/d"': {
+      run: function() { this.date = Date.parseExact('2008/1/31', "yyyy/M/d") },
+      assert: function() { return new Date(2008, 0, 31).equals(this.date) }
+    },    
     '04/07/15 : "yy/MM/dd"': {
       run: function() { this.date = Date.parseExact('04/07/15', "yy/MM/dd" ) },
       assert: function() { return this.baseline2.equals( this.date ) }
@@ -83,7 +95,25 @@
       assert: function() { 
 				return new Date(2004, 2, 15).equals( this.date );
 			}
-    }
+    },
+    '00:15 pm : "hh:mm tt"': {
+      run: function() { this.date = Date.parseExact('00:15 pm', 'hh:mm tt').set({millisecond: 0, second: 0}) },
+      assert: function() {
+                return new Date().set({millisecond: 0, hour: 0, minute: 15, second: 0}).equals(this.date);
+			}
+    },
+    '12:15 am : "hh:mm tt"': {
+      run: function() { this.date = Date.parseExact('12:15 am', 'hh:mm tt').set({millisecond: 0, second: 0}) },
+      assert: function() {
+                return new Date().set({millisecond: 0, hour: 0, minute: 15, second: 0}).equals(this.date);
+			}
+    },
+    '12:15 pm : "hh:mm tt"': {
+      run: function() { this.date = Date.parseExact('12:15 pm', 'hh:mm tt').set({millisecond: 0, second: 0}) },
+      assert: function() {
+                return new Date().set({millisecond: 0, hour: 12, minute: 15, second: 0}).equals(this.date);
+			}
+    }    
   }
 });
 
