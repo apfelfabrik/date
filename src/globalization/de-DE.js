@@ -21,6 +21,9 @@ Date.CultureInfo = {
     monthNames: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
     abbreviatedMonthNames: ["Jan", "Feb", "Mrz", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
 
+    abbreviatedQuarterNames: ['Q1', 'Q2', 'Q3', 'Q4'],
+    quarterNames: ['1. Quartal', '2. Quartal', '3. Quartal', '4. Quartal'],
+
 	/* AM/PM Designators */
     amDesignator: "",
     pmDesignator: "",
