@@ -956,7 +956,7 @@ var d1 = Date.parse("7/1 10pm");
  * @param {String}   The string value to convert into a Date object [Required]
  * @return {Date}    A Date object or null if the string cannot be converted into a Date.
  */
-Date.parse = function (s) {
+Date.slowParse = function (s) {
     var r = null; 
     if (!s) { 
         return null; 
@@ -967,6 +967,39 @@ Date.parse = function (s) {
         return null; 
     }
     return ((r[1].length === 0) ? r[0] : null);
+};
+
+/** parse a date more quickly. only uses Date.grammar on dates which are not parsable by new Date
+* @param string Date String to parse
+* @return undefined: no string given, null: date not parsable, otherwise: date object
+*/
+Date.parse = function (string) {
+  if (!string) {
+    return undefined;
+  }
+  var d = new Date(string);
+  if (window.isNaN(d)) {
+    // internet explorer is not very graceful when it comes to parsing
+    // our dates. with slashes, however, most is fine.
+    d = new Date(string.replace(/-/g, '/'));
+  }
+
+  if (window.isNaN(d)) {
+    try { 
+        r = Date.Grammar.start.call({}, s); 
+        d = ((r[1].length === 0) ? r[0] : NaN);
+    } catch (e) { 
+        d = NaN;
+    }
+  }
+
+  if (window.isNan(d)) {
+    return null;
+  }
+
+  d.clearTime();
+
+  return d;
 };
 
 Date.getParseFunction = function (fx) {

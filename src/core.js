@@ -182,6 +182,11 @@ Date.prototype.addMonths = function (value) {
     return this;
 };
 
+/** add quarters to this date */
+Date.prototype.addQuarters = function (n) {
+  return this.addMonths(n * 3);
+};
+
 /**
  * Adds the specified number of years to this instance. 
  * @param {Number}   The number of years to add. The number can be positive or negative [Required]
@@ -410,6 +415,11 @@ Date.prototype.isWeekday = function () {
  */
 Date.prototype.getDaysInMonth = function () { 
     return Date.getDaysInMonth(this.getFullYear(), this.getMonth());
+};
+
+/** get the quarter number of this date */
+Date.prototype.getQuarter = function () {
+  return Math.floor((this.getMonth() + 1) / 3);
 };
 
 /**
