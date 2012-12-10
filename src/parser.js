@@ -993,7 +993,7 @@ Date.parse = function (string) {
     }
   }
 
-  if (window.isNan(d)) {
+  if (window.isNaN(d)) {
     return null;
   }
 

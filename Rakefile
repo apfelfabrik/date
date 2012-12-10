@@ -12,10 +12,11 @@ end
 
 desc "minify files only."
 task :minify => ["dir"] do
+	puts("Minifying")
 	ugl = Uglifier.new(:copyright => false)
 	files = FileList.new('src/*.js', 'src/globalization/*.js')
 	files.each do |fileName|
-		puts("Minifying " + fileName)
+		#puts("Minifying " + fileName)
 		source = File.read(fileName)
 		min = ugl.compile(source)
 		File.open('minified/' + fileName.sub(/src\//, ""), 'w') {|f| f.write min}
@@ -32,9 +33,11 @@ task :concat do
 
 	basic = "\n" + core + "\n" + sugarpak + "\n" + parser
 
+	puts("Creating")
+
 	files = FileList.new('minified/globalization/*.js')
 	files.each do |fileName|
-		puts("Creating date-" + Pathname.new(fileName).basename)
+		#puts("Creating date-" + Pathname.new(fileName).basename)
 		source = File.read(fileName)
 		result = license + source + basic;
 		File.open('build/date-' + Pathname.new(fileName).basename, 'w') {|f| f.write result}
