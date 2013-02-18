@@ -507,10 +507,18 @@ Date.prototype.getWeekOfYear = function (firstDayOfWeek) {
  */
 Date.prototype.getWeek = function ($y, $m, $d) {
     var a, b, c, d, e, f, g, n, s, w;
+
+    var element = this;
+
+    if (Date.CultureInfo.firstDayOfWeek !== 1) {
+        if (this.getDay() === 0 || !(this.getDay() < Date.CultureInfo.firstDayOfWeek)) {
+            element = new Date(element).next().monday();
+        }
+    }
    
-    $y = (!$y) ? this.getFullYear() : $y;
-    $m = (!$m) ? this.getMonth() + 1 : $m;
-    $d = (!$d) ? this.getDate() : $d;
+    $y = (!$y) ? element.getFullYear() : $y;
+    $m = (!$m) ? element.getMonth() + 1 : $m;
+    $d = (!$d) ? element.getDate() : $d;
 
     if ($m <= 2) {
         a = $y - 1;
